@@ -25,8 +25,6 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import com.example.deepankur.diagnosisapplication.Utils;
-
 import java.util.Random;
 
 public class ExplosionAnimator extends ValueAnimator {

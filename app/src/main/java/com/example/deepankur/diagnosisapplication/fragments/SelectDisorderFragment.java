@@ -24,10 +24,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.deepankur.diagnosisapplication.R;
-import com.example.deepankur.diagnosisapplication.Utils;
+import com.example.deepankur.diagnosisapplication.utils.Utils;
 import com.example.deepankur.diagnosisapplication.database.FireBaseHelper;
+import com.example.deepankur.diagnosisapplication.diagnosis.MedicalConditionIndicatorMapper;
 import com.example.deepankur.diagnosisapplication.explosion.ExplosionField;
-import com.example.deepankur.diagnosisapplication.models.MedicalConditionsData;
+import com.example.deepankur.diagnosisapplication.models.MedicalConditions;
 
 import java.util.ArrayList;
 
@@ -103,15 +104,15 @@ public class SelectDisorderFragment extends BaseFragment {
 
     }
 
-    ArrayList<MedicalConditionsData> filteredData;
+    ArrayList<MedicalConditions> filteredData;
 
     private void startPartialSearch(String query) {
         int match = 0;
         Long t1 = System.currentTimeMillis();
-        final ArrayList<MedicalConditionsData> allMedicalConditionsData = MedicalConditionsData.getAllMedicalConditionsData();
+        final ArrayList<MedicalConditions> allMedicalConditionsData = MedicalConditions.getAllMedicalConditionsData();
         boolean broken = false;//we break the search at 10 elements per query
         filteredData.clear();
-        for (MedicalConditionsData data : allMedicalConditionsData) {
+        for (MedicalConditions data : allMedicalConditionsData) {
             if (data.getName().toLowerCase().contains(query)) {
                 filteredData.add(data);
                 match++;
@@ -127,7 +128,7 @@ public class SelectDisorderFragment extends BaseFragment {
         suggestionsLayout.removeAllViews();
 
         for (int i = 0; i < filteredData.size(); i++) {
-            MedicalConditionsData data = filteredData.get(i);
+            MedicalConditions data = filteredData.get(i);
             TextView textView = new TextView(context);
             suggestionsLayout.addView(textView);
             suggestionsLayout.setVisibility(View.VISIBLE);
@@ -148,14 +149,14 @@ public class SelectDisorderFragment extends BaseFragment {
         @Override
         public void onClick(View v) {
             imm.hideSoftInputFromWindow(conditionToDiagnoseInputEt.getApplicationWindowToken(), 0);
-            MedicalConditionsData data = (MedicalConditionsData) v.getTag();
+            MedicalConditions data = (MedicalConditions) v.getTag();
             if (data != null) {
                 addViewsOnConditionSelected(data);
             }
         }
     };
 
-    private void addViewsOnConditionSelected(final MedicalConditionsData data) {
+    private void addViewsOnConditionSelected(final MedicalConditions data) {
         checkAndRemovePreviousViews();
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -178,7 +179,9 @@ public class SelectDisorderFragment extends BaseFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadEnterSymptomsFragment(data);
+                if (MedicalConditionIndicatorMapper.getIndicatorsForACondition(data.getId()) != null)
+                    loadEnterSymptomsFragment(data);
+                else showShortToastMessage("No results Found for " + data.getName());
             }
         });
 
@@ -236,8 +239,9 @@ public class SelectDisorderFragment extends BaseFragment {
         ObjectAnimator.ofFloat(scrollView, "translationY", scrollView.getTranslationY(), target).setDuration(200).start();
     }
 
-    private void loadEnterSymptomsFragment(MedicalConditionsData data) {
+    private void loadEnterSymptomsFragment(MedicalConditions data) {
         EnterSymptomsFragment enterSymptomsFragment = new EnterSymptomsFragment();
+        enterSymptomsFragment.setMedicalCondition(data);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.activity_main, enterSymptomsFragment, EnterSymptomsFragment.class.getSimpleName());

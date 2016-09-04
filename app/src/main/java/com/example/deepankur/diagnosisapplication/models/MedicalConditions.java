@@ -8,11 +8,11 @@ import java.util.ArrayList;
  * Class to represent the possible medical conditions
  */
 
-public class MedicalConditionsData {
+public class MedicalConditions {
     private int id;
     private String name;
 
-    private MedicalConditionsData(int id, String name) {
+    private MedicalConditions(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -21,22 +21,37 @@ public class MedicalConditionsData {
         return name;
     }
 
+    public int getId() {
+        return id;
+    }
+
     /**
      * @return all possible medical conditions
      * can be populated in the start itself by local data or after fetching the data from server
      */
-   public static ArrayList<MedicalConditionsData> getAllMedicalConditionsData() {
-        ArrayList<MedicalConditionsData> list = new ArrayList<>(conditionName.length);
+    static ArrayList<MedicalConditions> list;
+
+    public static ArrayList<MedicalConditions> getAllMedicalConditionsData() {
+        if (list != null) return list;
+        list = new ArrayList<>(conditionName.length);
         for (int i = 0; i < conditionName.length; i++) {
-            MedicalConditionsData data = new MedicalConditionsData(i, conditionName[i]);
+            MedicalConditions data = new MedicalConditions(i, conditionName[i]);
             list.add(data);
         }
         return list;
     }
 
-    private static String[] conditionName = new String[]{
+    public static String getConditionByID(int id) {
+        for (int i = 0; i < list.size(); i++) {
+            if (id == i) return list.get(i).getName();
+        }
+        return null;
+    }
+
+    public static String[] conditionName = new String[]{
             " Hemophilia (Hemophilia)",
             "A, Hepatitis (Hepatitis A)",
+            "Todd’s Syndrome",
             "AAA (Abdominal Aortic Aneurysm)",
             "AAT (Alpha 1 Antitrypsin Deficiency)",
             " AATD (Alpha 1 Antitrypsin Deficiency)",

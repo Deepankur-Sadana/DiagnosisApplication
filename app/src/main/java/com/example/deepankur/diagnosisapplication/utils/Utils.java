@@ -1,4 +1,4 @@
-package com.example.deepankur.diagnosisapplication;
+package com.example.deepankur.diagnosisapplication.utils;
 
 import android.content.Context;
 import android.util.TypedValue;
