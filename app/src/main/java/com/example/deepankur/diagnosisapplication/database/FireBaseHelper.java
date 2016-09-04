@@ -1,12 +1,14 @@
-package database;
+package com.example.deepankur.diagnosisapplication.database;
 
 import android.content.Context;
 
 /**
  * Created by deepankur on 9/4/16.
+ *
+ * Singleton for all com.example.deepankur.diagnosisapplication.database operations
  */
 
-public class FireBaseHelper {
+public class FireBaseHelper implements FireBaseKeyIDS{
 
     private static FireBaseHelper sFireBaseHelper;
 
