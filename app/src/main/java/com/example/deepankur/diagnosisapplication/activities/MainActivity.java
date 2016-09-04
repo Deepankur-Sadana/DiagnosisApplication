@@ -11,12 +11,14 @@ import android.view.View;
 
 import com.example.deepankur.diagnosisapplication.R;
 import com.example.deepankur.diagnosisapplication.fragments.SelectDisorderFragment;
+import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
 
     final String TAG = getClass().getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Firebase.setAndroidContext(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loadSelectDisorderFragment();

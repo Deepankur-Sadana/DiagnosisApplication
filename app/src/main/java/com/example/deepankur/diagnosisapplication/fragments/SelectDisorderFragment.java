@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.deepankur.diagnosisapplication.R;
 import com.example.deepankur.diagnosisapplication.Utils;
+import com.example.deepankur.diagnosisapplication.database.FireBaseHelper;
 import com.example.deepankur.diagnosisapplication.explosion.ExplosionField;
 import com.example.deepankur.diagnosisapplication.models.MedicalConditionsData;
 
@@ -154,7 +155,7 @@ public class SelectDisorderFragment extends BaseFragment {
         }
     };
 
-    private void addViewsOnConditionSelected(MedicalConditionsData data) {
+    private void addViewsOnConditionSelected(final MedicalConditionsData data) {
         checkAndRemovePreviousViews();
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -177,7 +178,7 @@ public class SelectDisorderFragment extends BaseFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                loadEnterSymptomsFragment(data);
             }
         });
 
@@ -201,7 +202,7 @@ public class SelectDisorderFragment extends BaseFragment {
         RelativeLayout root = (RelativeLayout) rootView;
         for (int i = 0; i < root.getChildCount(); i++) {
             if (root.getChildAt(i) instanceof LinearLayout) {// we are sure that only one linear layout
-                // is there in the root view as of now so if can safely can this iteration
+                // is there in the root view as of now ,so if can safely do this iteration
                 root.removeViewAt(i);
                 break;
             }
@@ -235,11 +236,12 @@ public class SelectDisorderFragment extends BaseFragment {
         ObjectAnimator.ofFloat(scrollView, "translationY", scrollView.getTranslationY(), target).setDuration(200).start();
     }
 
-    private void loadEnterSymptomsFragment() {
+    private void loadEnterSymptomsFragment(MedicalConditionsData data) {
         EnterSymptomsFragment enterSymptomsFragment = new EnterSymptomsFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.activity_main, enterSymptomsFragment, EnterSymptomsFragment.class.getSimpleName());
         fragmentTransaction.commitAllowingStateLoss();
+        FireBaseHelper.getInstance(context);
     }
 }
