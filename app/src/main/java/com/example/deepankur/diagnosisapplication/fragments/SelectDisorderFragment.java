@@ -144,7 +144,7 @@ public class SelectDisorderFragment extends BaseFragment {
             textView.setTag(data);
             if (data != null) {
                 textView.setText(data.getName());
-            } else textView.setText("Unable to find?");
+            }
             textView.setOnClickListener(suggestionClickedListener);
         }
     }
@@ -187,7 +187,8 @@ public class SelectDisorderFragment extends BaseFragment {
             public void onClick(View v) {
                 if (MedicalConditionIndicatorMapper.getIndicatorsForACondition(data.getId()) != null)
                     loadEnterSymptomsFragment(data);
-                else showShortToastMessage("No results Found for " + data.getName());
+                else
+                    showShortToastMessage("No results Found for " + data.getName() + " try searching todd's syndrome");
             }
         });
 
@@ -259,7 +260,6 @@ public class SelectDisorderFragment extends BaseFragment {
 
     private void loadViewPreviousResultsFragment() {
         PastResultFragment pastResultFragment = new PastResultFragment();
-
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.activity_main, pastResultFragment, PastResultFragment.class.getSimpleName());

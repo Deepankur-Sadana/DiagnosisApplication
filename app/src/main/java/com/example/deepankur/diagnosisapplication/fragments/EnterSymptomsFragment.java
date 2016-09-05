@@ -198,7 +198,7 @@ public class EnterSymptomsFragment extends BaseFragment {
             case AGE:
                 return "Age";
             case SEX:
-                return "Enter Sex";
+                return "Sex: Female";
             case HALLUCINOGENS_USAGE:
                 return "Do you use Hallucinogens";
             case MIGRAINE:
