@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.example.deepankur.diagnosisapplication.R;
 import com.example.deepankur.diagnosisapplication.fragments.SelectDisorderFragment;
-import com.example.deepankur.diagnosisapplication.utils.DeviceUuidFactory;
 import com.firebase.client.Firebase;
 
 import java.util.UUID;
@@ -20,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Firebase.setAndroidContext(this);
+        Firebase.getDefaultConfig().setPersistenceEnabled(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loadSelectDisorderFragment();
@@ -30,10 +30,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
-        DeviceUuidFactory uuidFactory = new DeviceUuidFactory(this);
-        final UUID deviceUuid = uuidFactory.getDeviceUuid();
-//        deviceUuid.
-        Log.d(TAG, deviceUuid.toString());
+//        DeviceUuidFactory uuidFactory = new DeviceUuidFactory(this);
+//        final UUID deviceUuid = uuidFactory.getDeviceUuid();
+//        Log.d(TAG, deviceUuid.toString());
     }
 
     @Override
@@ -57,12 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadSelectDisorderFragment() {
         SelectDisorderFragment fragment = new SelectDisorderFragment();
-
         Log.d(TAG, " opening SelectDisorderFragment");
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.activity_main, fragment, SelectDisorderFragment.class.getSimpleName());
-//        fragmentTransaction.addToBackStack(SelectDisorderFragment.class.getSimpleName());
         fragmentTransaction.commitAllowingStateLoss();
     }
 }

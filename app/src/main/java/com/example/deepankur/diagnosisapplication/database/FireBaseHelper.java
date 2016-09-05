@@ -30,6 +30,7 @@ public class FireBaseHelper implements FireBaseKEYIDS {
     private FireBaseHelper(Context context) {
 //        getNewFireBase("ads", null).setValue("Hello");
         deviceUid = getDeviceUniqueId(context);
+        getNewFireBase(ANCHOR_PAST_RESULTS, null).keepSynced(true);
         loadPastResults();
     }
 

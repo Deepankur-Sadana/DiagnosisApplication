@@ -262,6 +262,10 @@ public class SelectDisorderFragment extends BaseFragment {
         PastResultFragment pastResultFragment = new PastResultFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left,
+                R.anim.slide_out_right, R.anim.slide_in_right);
+
         fragmentTransaction.replace(R.id.activity_main, pastResultFragment, PastResultFragment.class.getSimpleName());
         fragmentTransaction.addToBackStack(PastResultFragment.class.getSimpleName());
         fragmentTransaction.commitAllowingStateLoss();
