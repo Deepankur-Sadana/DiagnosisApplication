@@ -33,9 +33,11 @@ public class PreviousResultsAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof VHItem)
-            ((VHItem) holder).result.setText(pastResultsModels.get(position).getPercentagePredicted());
-
+        if (holder instanceof VHItem) {
+            final PastResultsModel pastResultsModel = pastResultsModels.get(position);
+            ((VHItem) holder).resultTv.setText(pastResultsModel.getPercentagePredicted() + " %");
+            ((VHItem) holder).conditionNameTV.setText(pastResultsModel.getMedicalCondition().getName() );
+        }
     }
 
     @Override
@@ -44,11 +46,13 @@ public class PreviousResultsAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     private class VHItem extends RecyclerView.ViewHolder {
-        TextView result;
+        TextView resultTv;
+        TextView conditionNameTV;
 
         VHItem(View itemView) {
             super(itemView);
-            result = (TextView) itemView.findViewById(R.id.resultTV);
+            resultTv = (TextView) itemView.findViewById(R.id.resultTV);
+            conditionNameTV = (TextView) itemView.findViewById(R.id.conditionNameTV);
         }
     }
 }

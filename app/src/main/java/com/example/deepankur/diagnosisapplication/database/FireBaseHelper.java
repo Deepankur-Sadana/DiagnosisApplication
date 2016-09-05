@@ -52,6 +52,11 @@ public class FireBaseHelper implements FireBaseKEYIDS {
         return fireBase;
     }
 
+    public void writePastResultsToFireBase(PastResultsModel pastResultsModel) {
+        getNewFireBase(ANCHOR_PAST_RESULTS, null).push().setValue(pastResultsModel);
+    }
+
+
     private ArrayList<PastResultsModel> pastResultsModels = new ArrayList<>();
 
     private void loadPastResults() {

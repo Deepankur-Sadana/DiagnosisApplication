@@ -101,6 +101,12 @@ public class SelectDisorderFragment extends BaseFragment {
                 }
             }
         });
+        rootView.findViewById(R.id.viewPreviousresultsTV).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadViewPreviousResultsFragment();
+            }
+        });
 
     }
 
@@ -246,6 +252,16 @@ public class SelectDisorderFragment extends BaseFragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.activity_main, enterSymptomsFragment, EnterSymptomsFragment.class.getSimpleName());
         fragmentTransaction.addToBackStack(EnterSymptomsFragment.class.getSimpleName());
+        fragmentTransaction.commitAllowingStateLoss();
+        FireBaseHelper.getInstance(context);
+    }
+    private void loadViewPreviousResultsFragment() {
+        PastResultFragment pastResultFragment = new PastResultFragment();
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.activity_main, pastResultFragment, PastResultFragment.class.getSimpleName());
+        fragmentTransaction.addToBackStack(PastResultFragment.class.getSimpleName());
         fragmentTransaction.commitAllowingStateLoss();
         FireBaseHelper.getInstance(context);
     }

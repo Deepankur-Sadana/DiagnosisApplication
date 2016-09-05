@@ -18,6 +18,7 @@ import com.example.deepankur.diagnosisapplication.diagnosis.Indicators;
 import com.example.deepankur.diagnosisapplication.diagnosis.MedicalConditionIndicatorMapper;
 import com.example.deepankur.diagnosisapplication.diagnosis.OfflineDiagnosis;
 import com.example.deepankur.diagnosisapplication.models.MedicalConditions;
+import com.example.deepankur.diagnosisapplication.models.PastResultsModel;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -84,11 +85,23 @@ public class EnterSymptomsFragment extends BaseFragment {
         OfflineDiagnosis diagnosis = new OfflineDiagnosis(medicalCondition, indicatorsObjectLinkedHashMap);
         try {
             final int probability = diagnosis.predictResult();
-            showShortToastMessage("you have " + probability);
+            showPopup(probability);
+            dumpResultsToDataBase(medicalCondition, indicatorsObjectLinkedHashMap, probability);
         } catch (Exception e) {
             showShortToastMessage("Some error occured");
             e.printStackTrace();
         }
+    }
+
+    private void dumpResultsToDataBase(MedicalConditions medicalCondition, LinkedHashMap<Indicators, Object> indicatorsObjectLinkedHashMap, int recordedPercentage) {
+        PastResultsModel pastResultsModel = new PastResultsModel(
+                ((Boolean) indicatorsObjectLinkedHashMap.get(Indicators.MIGRAINE)),
+                ((Integer) indicatorsObjectLinkedHashMap.get(Indicators.AGE)),
+                ((String) indicatorsObjectLinkedHashMap.get(Indicators.SEX)),
+                ((Boolean) indicatorsObjectLinkedHashMap.get(Indicators.HALLUCINOGENS_USAGE)),
+                medicalCondition, recordedPercentage
+        );
+        fireBaseHelper.writePastResultsToFireBase(pastResultsModel);
     }
 
     private LinkedHashMap<Indicators, Object> indicatorsObjectLinkedHashMap;
@@ -130,7 +143,7 @@ public class EnterSymptomsFragment extends BaseFragment {
     }
 
     private ArrayList<View> indicatorViewsForm;
-    TextView sexTv;
+    private TextView sexTv;
 
     private View getViewForAnIndicator(Indicators indicator) {
         View itemView;

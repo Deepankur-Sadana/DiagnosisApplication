@@ -1,5 +1,8 @@
 package com.example.deepankur.diagnosisapplication.models;
 
+import com.example.deepankur.diagnosisapplication.utils.AppKEYIDS;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 
 /**
@@ -8,9 +11,13 @@ import java.util.ArrayList;
  * Class to represent the possible medical conditions
  */
 
+@JsonIgnoreProperties(ignoreUnknown = AppKEYIDS.IGNORE_UNRECOGNIZED_FIELD)
 public class MedicalConditions {
     private int id;
     private String name;
+
+    public MedicalConditions() {
+    }
 
     private MedicalConditions(int id, String name) {
         this.id = id;
