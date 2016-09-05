@@ -24,11 +24,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.deepankur.diagnosisapplication.R;
-import com.example.deepankur.diagnosisapplication.utils.Utils;
 import com.example.deepankur.diagnosisapplication.database.FireBaseHelper;
 import com.example.deepankur.diagnosisapplication.diagnosis.MedicalConditionIndicatorMapper;
 import com.example.deepankur.diagnosisapplication.explosion.ExplosionField;
 import com.example.deepankur.diagnosisapplication.models.MedicalConditions;
+import com.example.deepankur.diagnosisapplication.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -195,6 +195,7 @@ public class SelectDisorderFragment extends BaseFragment {
         textView.setText(data.getName());
         textView.setGravity(Gravity.CENTER);
         textView.setMaxWidth(Utils.convertDpToPixels(context, 200));
+        textView.setPadding(Utils.convertDpToPixels(context, 16), 0, Utils.convertDpToPixels(context, 16), 0);
 
         linearLayout.addView(clear);
         linearLayout.addView(textView);
@@ -255,6 +256,7 @@ public class SelectDisorderFragment extends BaseFragment {
         fragmentTransaction.commitAllowingStateLoss();
         FireBaseHelper.getInstance(context);
     }
+
     private void loadViewPreviousResultsFragment() {
         PastResultFragment pastResultFragment = new PastResultFragment();
 

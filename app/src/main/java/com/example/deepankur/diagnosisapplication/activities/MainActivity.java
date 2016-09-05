@@ -1,21 +1,22 @@
 package com.example.deepankur.diagnosisapplication.activities;
 
-import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 
 import com.example.deepankur.diagnosisapplication.R;
 import com.example.deepankur.diagnosisapplication.fragments.SelectDisorderFragment;
+import com.example.deepankur.diagnosisapplication.utils.DeviceUuidFactory;
 import com.firebase.client.Firebase;
+
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
     final String TAG = getClass().getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Firebase.setAndroidContext(this);
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
+        DeviceUuidFactory uuidFactory = new DeviceUuidFactory(this);
+        final UUID deviceUuid = uuidFactory.getDeviceUuid();
+//        deviceUuid.
+        Log.d(TAG, deviceUuid.toString());
     }
 
     @Override
@@ -48,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
     }
-
 
 
     public void loadSelectDisorderFragment() {

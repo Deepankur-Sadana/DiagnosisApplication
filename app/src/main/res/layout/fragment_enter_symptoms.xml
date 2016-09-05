@@ -14,11 +14,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
-
     </ScrollView>
 
     <TextView
         android:text="Get Results"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
         android:id="@+id/getReultsTV"
         android:layout_width="match_parent"

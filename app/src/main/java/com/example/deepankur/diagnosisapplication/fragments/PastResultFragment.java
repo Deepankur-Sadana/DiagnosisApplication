@@ -31,7 +31,7 @@ public class PastResultFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pastResultsModels = fireBaseHelper.getPastResults();
+        pastResultsModels = new ArrayList<>(fireBaseHelper.getPastResults());
     }
 
     @Nullable
@@ -59,7 +59,7 @@ public class PastResultFragment extends BaseFragment {
             noResultsTv.setVisibility(View.GONE);
             final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             pastResultRecycler.setLayoutManager(layoutManager);
-            pastResultRecycler.setAdapter(new PreviousResultsAdapter(pastResultsModels));
+            pastResultRecycler.setAdapter(new PreviousResultsAdapter(pastResultsModels,fireBaseHelper));
             pastResultRecycler.setHasFixedSize(true);
         }
     }
