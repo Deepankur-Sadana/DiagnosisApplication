@@ -1,5 +1,7 @@
 package com.example.deepankur.diagnosisapplication.fragments;
 
+import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -7,7 +9,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.deepankur.diagnosisapplication.R;
+import com.example.deepankur.diagnosisapplication.utils.AppKEYIDS;
 
 /**
  * Created by deepankur on 9/4/16.
@@ -15,7 +24,7 @@ import android.widget.Toast;
  * Base class for all FragmentFragment
  */
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements AppKEYIDS{
     protected Context context;
     @Override
     public void onAttach(Context context) {
@@ -47,4 +56,13 @@ public class BaseFragment extends Fragment {
     protected void showShortToastMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
+
+    private void showPopup(final  int predictedPercentage) {
+        final Dialog popup = new Dialog(context, android.R.style.Theme_Translucent);
+        popup.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        popup.setContentView(R.layout.dialog_predicted_result);
+        popup.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+    }
+
 }

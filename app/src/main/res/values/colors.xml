@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#4db6ac</color>
+
+
+    <color name="app_button_color">#9900FF</color>
+    <color name="app_pressed_button_color">#6D11AC</color>
+    <color name="separator">#1f000000</color>
+
+    <color name="app_unselect_color">#42010101</color>
+
+
 </resources>

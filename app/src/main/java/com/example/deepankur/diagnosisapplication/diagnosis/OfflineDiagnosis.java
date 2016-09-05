@@ -24,11 +24,11 @@ public class OfflineDiagnosis implements AppKEYIDS {
         if (!validateInputs(indicatorsObjectLinkedHashMap)) {
             throw new RuntimeException("incorrect values provided for diagnosis");
         }
-        try {
-            predictResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            predictResult();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     private boolean validateInputs(LinkedHashMap<Indicators, Object> indicatorsObjectLinkedHashMap) {
@@ -62,7 +62,7 @@ public class OfflineDiagnosis implements AppKEYIDS {
         }
     }
 
-    private int predictResult() throws Exception {
+    public int predictResult() throws Exception {
         switch (medicalCondition.getId()) {
             case 2:
                 return getToddsSyndromeProbability(indicatorsObjectLinkedHashMap);

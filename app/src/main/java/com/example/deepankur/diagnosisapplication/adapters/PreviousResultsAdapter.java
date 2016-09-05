@@ -40,13 +40,13 @@ public class PreviousResultsAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return pastResultsModels.size();
     }
 
     private class VHItem extends RecyclerView.ViewHolder {
         TextView result;
 
-        public VHItem(View itemView) {
+        VHItem(View itemView) {
             super(itemView);
             result = (TextView) itemView.findViewById(R.id.resultTV);
         }

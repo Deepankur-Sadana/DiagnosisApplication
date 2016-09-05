@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+
+    <style name="ColorSwitchStyle">
+        <item name="colorControlActivated">@color/app_button_color</item>
+        <item name="colorControlNormal">@color/app_unselect_color</item>
+    </style>
+
+
+
+</resources>
